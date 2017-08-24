@@ -45,6 +45,11 @@ class tavara():
             print("Ei voida ottaa, tavara loppu")
             return
 
+    def varastoiString(self):
+        return "{};{};{};{}\n".format(self.nimi,
+                                      self.tyyppi,
+                                      self.paikka,
+                                      self.maara)
     def toString(self):
         if self.maara == 1: muoto = "sitä"
         else: muoto = "niitä"
@@ -55,65 +60,71 @@ class tavara():
 
 class hylly():
     def __init__(self):
-        self.hylly = []
+        self.tavaratLista = "kaikki_tavarat.txt"
 
     def lisaaTavara(self, tavara):
-        self.hylly.append(tavara)
-        #print("Lisätty")
+        tiedosto = open(self.tavaratLista, "a")
+        tiedosto.write(tavara.varastoiString())
+        tiedosto.close()
+        print("Hylly class appended")
 
     def getTavara(self, index):
-        return self.hylly[index].toString()
+        tiedosto = open(self.tavaratLista, "r")
+        sisalto = tiedosto.readlines(index)
+        tiedosto.close()
+        print(sisalto)
+        return sisalto
 
     def getKaikkiTavarat(self):
-        string = ""
+        # string = ""
+        #
+        # for i in range(0, self.getTavaraMaara()):
+        #     string += self.hylly[i].toString()
+        #     if i == self.getTavaraMaara()-1:
+        #         string += "\n"
+        #     else:
+        #         string += "\n\n"
+        return #string
 
-        for i in range(0, self.getTavaraMaara()):
-            string += self.hylly[i].toString()
-            if i == self.getTavaraMaara()-1:
-                string += "\n"
-            else:
-                string += "\n\n"
-        return string
-
-    def getTavaraMaara(self):
-        return len(self.hylly)
-
-    def etsiNimella(self, tavara):
-        tuloksia = 0
-        esine = ""
-        for i in range(0, self.getTavaraMaara()):
-            if self.hylly[i].isNimi(tavara):
-                esine = self.hylly[i].toString()
-                tuloksia += 1
-                break
-
-        if tuloksia == 0:
-            for i in range(0, self.getTavaraMaara()):
-                if tavara in self.hylly[i].getNimi().strip().lower():
-                    esine += self.hylly[i].toString()
-                    esine += "\n"
-            return "Hakutuloksia {} \n\nTarkoitit varmaan:\n{}\n".format(tuloksia,
-                                                                         esine)
-        return "Hakutuloksia {} \n\n{}\n".format(tuloksia,
-                                              esine)
-
-    def etsiTyypilla(self, tyyppi):
-        esine = ""
-
-        for i in range(0, self.getTavaraMaara()):
-            if self.hylly[i].isTyyppi(tyyppi):
-                esine += self.hylly[i].toString()
-                esine += "\n"
-
-        return esine
-
-    def toString(self):
-        #print("Printattu")
-        string = ""
-
-        return self.hylly[0].toString()
-
-        #for i in range (0, len(self.hylly)):
+    # def getTavaraMaara(self):
+    #     return #len(self.hylly)
+    #
+    # def etsiNimella(self, tavara):
+    #     tuloksia = 0
+    #     esine = ""
+    #     for i in range(0, self.getTavaraMaara()):
+    #         if self.hylly[i].isNimi(tavara):
+    #             esine = self.hylly[i].toString()
+    #             tuloksia += 1
+    #             break
+    #
+    #     if tuloksia == 0:
+    #         for i in range(0, self.getTavaraMaara()):
+    #             if tavara in self.hylly[i].getNimi().strip().lower():
+    #                 esine += self.hylly[i].toString()
+    #                 esine += "\n"
+    #         return "Hakutuloksia {} \n\nTarkoitit varmaan:\n{}\n".format(tuloksia,
+    #                                                                      esine)
+    #     return "Hakutuloksia {} \n\n{}\n".format(tuloksia,
+    #                                           esine)
+    #
+    # def etsiTyypilla(self, tyyppi):
+    #     esine = ""
+    #
+    #     for i in range(0, self.getTavaraMaara()):
+    #         if self.hylly[i].isTyyppi(tyyppi):
+    #             esine += self.hylly[i].toString()
+    #             esine += "\n"
+    #
+    #     return esine
+    #
+    # def toString(self):
+    #     #print("Printattu")
+    #     string = ""
+    #
+    #     return self.hylly[0].toString()
+    #
+    #     #for i in range (0, len(self.hylly)):
 
 def interface():
     print("""{}[1] - Etsi tavaroita nimellä
