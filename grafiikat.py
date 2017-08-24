@@ -1,5 +1,6 @@
 import tkinter as tk
 from tavara import *
+
 #import tavara
 
 # class Tietokanta():
@@ -91,7 +92,7 @@ maara.grid(row=3, column=1)
 tavara = tavara(nimi, tyyppi, paikka, maara)
 
 lisaaButton = tk.Button(ikkuna, text="Lisää",
-                        command=lisaa(tavara))
+                        command=lambda:lisaa(tavara))
 lisaaButton.bind("<Button-1>")    # <Button-1> = Left Mouse Click eli se on eventti
 lisaaButton.grid(row=4, column=1)
 # Toinen tapa kutsua funktiota kun nappia painetaan
